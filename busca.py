@@ -1,5 +1,4 @@
-import os
-import obterArtigo as obterArtigo
+import os, json, obterArtigo
 from pprint import pprint
 from collections import Counter
 #from PubMed import obterArtigos_PubMed
@@ -62,7 +61,10 @@ def efetuarBusca(termo_busca, busca_rapida, lista_bases):
 
     #retornarCsv(resultado_ngramas, termo_busca)
 
-    return resultado_ngramas, artigos_em_string_json, total_assuntos, total_anos
+    anos_json = json.dumps(total_anos)
+    assuntos_json = json.dumps(total_assuntos)
+
+    return resultado_ngramas, artigos_em_string_json, assuntos_json, anos_json
 
 
 def retornarTxt(resultado, termo_busca):
