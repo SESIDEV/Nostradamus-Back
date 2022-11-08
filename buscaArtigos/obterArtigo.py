@@ -2,7 +2,7 @@ import json
 import requests
 import progressbar
 import time
-from ngrama import Artigo
+from buscaArtigos.ngrama import Artigo
 
 # CONVERTE O RESULTADO DA BUSCA INDIVIDUAL DE ARTIGOS DE XML PARA JSON
 xml_to_json = {'Accept': 'application/json'}
