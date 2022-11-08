@@ -1,15 +1,15 @@
-from flask import Blueprint, render_template, request
-from buscaArtigos.busca import efetuarBusca
+from flask import Flask, request
+from busca import efetuarBusca
 
-main = Blueprint('home', __name__)
+app = Flask(__name__)
 
-@main.route("/")
+@app.route("/")
 def index():
     #return render_template("content/index.html")
     return 'página principal'
 
 
-@main.route("/search")
+@app.route("/search")
 def busca():
     bases = ["springerlink", "sciencedirect"]
     bases_selecionadas = list()
@@ -28,7 +28,10 @@ def busca():
         #return render_template("content/search.html")
 
 
-@main.route("/result")
+@app.route("/result")
 def resultado():
     #return render_template("content/search.html")
     pass
+
+if __name__ == "__main__":
+    app.run(debug=True)

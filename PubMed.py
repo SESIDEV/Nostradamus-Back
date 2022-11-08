@@ -3,7 +3,7 @@ import requests
 import progressbar
 import time
 import xmltodict
-from buscaArtigos.ngrama import Artigo, n_grams_json
+from ngrama import Artigo, n_grams_json
 '''
 ===================================================================================================================================================
 
