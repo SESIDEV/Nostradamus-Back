@@ -32,8 +32,8 @@ def efetuarBusca(termo_busca, busca_rapida, lista_bases):
             obterArtigo.SpringerLink(termo_formatado, busca_rapida))
     
     #PARA NGRAMAS
-    for classe_artigo in artigos_retornados:
-        artigos_total_ngramas += classe_artigo.ngramas
+    #for classe_artigo in artigos_retornados:
+    #    artigos_total_ngramas += classe_artigo.ngramas ??????????????????????????????? ENTENDER ISSO AQUI
 
 
     #PARA ARTIGOS
@@ -64,7 +64,7 @@ def efetuarBusca(termo_busca, busca_rapida, lista_bases):
     anos_json = json.dumps(total_anos)
     assuntos_json = json.dumps(total_assuntos)
 
-    return resultado_ngramas, artigos_em_string_json, assuntos_json, anos_json
+    return [resultado_ngramas, artigos_em_string_json, assuntos_json, anos_json]
 
 
 def retornarTxt(resultado, termo_busca):
