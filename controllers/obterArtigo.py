@@ -108,6 +108,7 @@ def SpringerLink(termo, busca_rapida):
         qtd_loops = 1
     else:
         qtd_loops = 200
+    qtd_loops = 1
 
     # LOOPING PARA PEGAR MAIS DE 10 ARTIGOS
     for x in progressbar.progressbar(range(qtd_loops)):

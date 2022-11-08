@@ -1,0 +1,142 @@
+@import url("pages/home/index.css");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none !important;
+  list-style: none;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode";
+}
+
+.grid-painel-termos {
+  gap: 5px;
+  align-items: center;
+  display: grid;
+  overflow-y: auto;
+  grid-template-columns: repeat(auto-fill, minmax(7vw, 1fr));
+}
+
+.grafico-treemap {
+  backdrop-filter: blur(5px);
+  position: absolute;
+  margin-top: 30vh;
+  width: auto;
+}
+
+.dropdown-base-dados {
+  display: flex;
+  flex-direction: row;
+}
+
+.background-nostradamus {
+  background-image: url(../images/nostradamus_blur.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.checkbox-adjust {
+  align-items: center;
+}
+
+.checkbox-menu li input {
+  margin: 0px 12px;
+  top: 2px;
+  position: relative;
+}
+
+.result-style {
+  height: calc(100vh - 50px);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.anos-pub {
+  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(4vw, 1fr));
+}
+
+.border-round {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 0.25rem !important;
+}
+
+.index-style {
+  background-image: url(../images/nostradamus.jpeg);
+  background-position: center;
+  background-size: cover;
+  height: calc(100vh - 50px);
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.style-nostradamus {
+  height: calc(100vh - 50px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.input-tickbox {
+  margin-right: 335px;
+}
+
+.search-params {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.hidden-anything {
+  display: none;
+}
+
+.show-anything {
+  display: block;
+}
+
+.search-bar {
+  display: block;
+  height: 40px;
+  width: 470px;
+  margin-right: 10px;
+  font-size: 15px;
+  margin-bottom: 0.2em;
+}
+
+.search-el {
+  display: flex;
+  flex-direction: row;
+}
+
+.search-button {
+  height: 40px;
+  width: 120px;
+  font-size: 15px;
+}
+
+.titulo-principal:after {
+  content: "|";
+  opacity: 1;
+  animation: pisca 0.7s infinite;
+  color: white;
+}
+
+/* Animação aplicada ao content referente a classe *.titulo-principal* resultando num efeito de cursor piscando. */
+
+@keyframes pisca {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}

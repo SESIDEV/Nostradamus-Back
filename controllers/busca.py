@@ -2,18 +2,12 @@ import os
 import obterArtigo
 from pprint import pprint
 from collections import Counter
-#from PubMed import obterArtigos_PubMed
 from ngrama import n_grams_json
 
 os.system('cls')
 
-def buscaMultipla(palavras):
-    buscas = palavras.split(";")
-    for termo_busca in buscas:
-        efetuarBusca(termo_busca)
 
-
-def efetuarBusca(termo_busca, busca_rapida, lista_bases):
+def efetuarBusca(termo_busca, lista_bases, busca_rapida):
     termo_formatado = termo_busca.replace(" ", "%20")
 
     artigos_retornados = list()
@@ -24,13 +18,11 @@ def efetuarBusca(termo_busca, busca_rapida, lista_bases):
 
     if "sciencedirect" in lista_bases:
         print(f"[ScienceDirect]: Pesquisando informações sobre: {termo_busca}")
-        artigos_retornados.extend(
-            obterArtigo.ScienceDirect(termo_formatado, busca_rapida))
+        artigos_retornados.extend(obterArtigo.ScienceDirect(termo_formatado, busca_rapida))
 
     if "springerlink" in lista_bases:
         print(f"[SpringerLink]: Pesquisando informações sobre: {termo_busca}")
-        artigos_retornados.extend(
-            obterArtigo.SpringerLink(termo_formatado, busca_rapida))
+        artigos_retornados.extend(obterArtigo.SpringerLink(termo_formatado, busca_rapida))
     
     #PARA NGRAMAS
     for classe_artigo in artigos_retornados:
@@ -62,8 +54,8 @@ def efetuarBusca(termo_busca, busca_rapida, lista_bases):
 
     #retornarCsv(resultado_ngramas, termo_busca)
 
-    return resultado_ngramas, artigos_em_string_json, total_assuntos, total_anos
-
+    # return resultado_ngramas, artigos_em_string_json, total_assuntos, total_anos
+    return {"resultado_ngramas": resultado_ngramas, "artigos_em_string_json": artigos_em_string_json, "total_assuntos": total_assuntos, "total_anos": total_anos}
 
 def retornarTxt(resultado, termo_busca):
     with open(f"resultado_{termo_busca}.txt", "w", encoding='utf8') as output:

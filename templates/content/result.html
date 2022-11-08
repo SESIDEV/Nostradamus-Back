@@ -1,0 +1,299 @@
+{% extends 'layout/layout.html' %} {% block title %} Resultado {% endblock %} {%
+include 'layout/header.html' %} {% block content%}
+<div class="result-style background-nostradamus row">
+  <div class="col-3 border border-dark border-round p-1">
+    <div class="list-group" style="background-color: rgba(255, 255, 255, 0.2)">
+      <a href="#" class="list-group-item list-group-item-action" style="background-color: #ffc107" aria-current="true">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1" style="font-size: 15px">
+            O termo de busca foi: {{ termo }}
+          </h5>
+        </div>
+        <p class="mb-2" style="font-size: 15px">
+          Classifique o resultado ou faça uma nova busca.
+        </p>
+        <small style="font-size: 15px">
+          <div class="input-group">
+            <form style="align-items: center; display: flex">
+              <input type="text" class="form-control" aria-describedby="button-addon2"
+                style="height: 38px; font-size: 15px" name="search" />
+              <button class="btn btn-outline-dark" style="margin-left: 15px" type="submit" id="button-addon2"
+                style="height: 30px; font-size: 15px; color: white">
+                Buscar
+              </button>
+            </form>
+          </div>
+        </small>
+      </a>
+
+      <a href="#" class="list-group-item list-group-item-action mt-3">
+        <div>
+          <h2 class="mb-1" style="font-size: 15px">Anos de Publicação</h2>
+          <p class="mb-1" style="font-size: 15px">
+            Quantidade de Artigos por Ano de Publicação:
+          </p>
+          <span class="anos-pub">
+            {% for ano in total_anos %}
+            <button type="button" class="btn btn-warning position-relative mt-3 mx-2 p-1" style="font-size: 15px">
+              {{ ano[0] }}
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                {{ ano[1] }}
+              </span>
+            </button>
+            {% endfor %}
+          </span>
+        </div>
+      </a>
+      <figure class="list-group-item list-group-item-action highcharts-figure">
+        <div id="graficoLinha"></div>
+      </figure>
+    </div>
+  </div>
+  <div class="col-6" style="height: calc(100vh - 50px)">
+    <h1 style="color: white">N-gramas:</h1>
+    <div style="height: calc(50vh - 50px); overflow-y: auto; background-color: rgba(255, 255, 255, 0.2);">
+      <div class="border border-round border-secondary p-1">
+        <div style="margin: 0 auto; background-color: rgba(255, 255, 255, 0.2)" id="div1" ondrop="drop(event)"
+          ondragover="allowDrop(event)">
+          {% for ngrama in resultados_ngramas %}
+          <button type="button" class="btn btn-warning position-relative mt-3 mx-2 p-1" style="font-size: 15px"
+            id="{{loop.index}}" draggable="true" ondragstart="drag(event)">
+            <span>{{ ngrama[0][0] }} {{ ngrama[0][1] }}</span>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light text-dark">
+              {{ ngrama[1] }}
+            </span>
+          </button>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <br />
+    <h1 style="color: white">Assuntos (Subjects):</h1>
+    <div class="mt-3" style="height: calc(40vh - 50px); overflow-y: auto; background-color: rgba(255, 255, 255, 0.2);">
+      <div class="border border-round border-secondary p-1">
+        <div style="margin: 0 auto; background-color: rgba(255, 255, 255, 0.2)" id="div1" ondrop="drop(event)"
+          ondragover="allowDrop(event)">
+          {% for assunto in total_assuntos %}
+          <button type="button" class="btn btn-light position-relative mt-3 mx-2 p-1" style="font-size: 15px"
+            id="assunto_{{loop.index}}" draggable="true" ondragstart="drag(event)">
+            {{ assunto[0] }}
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark">
+              {{ assunto[1] }}
+            </span>
+          </button>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-3 border-left-0 border-secondary p-1 mt-3" id="location-classification">
+    <span class="grid-painel-termos">
+      <button class="grid-item btn btn-warning" id="btn-classification" onclick="createClassification()">
+        Criar Classificação
+      </button>
+      <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modal-termos-comuns">
+        Ver termos mais comuns
+      </button>
+      <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+        data-bs-target="#modal-download-classificacoes" id="btn-download" onclick="parseDados(printResult())">
+        Download
+      </button>
+      <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+        data-bs-target="#modal-download-classificacoes" id="btn-download" onclick="baixarGraficos()">
+        Download 2
+      </button>
+    </span>
+  </div>
+
+  <div id="janela-termos">
+    <!-- Modal -->
+    <div class="modal fade" style="backdrop-filter: blur(5px)" id="modal-termos-comuns" tabindex="-1"
+      aria-labelledby="label-modal-termos" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="label-modal-termos">Termos e Ngramas</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <figure class="highcharts-figure">
+              <div id="graficoTreemap"></div>
+            </figure>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-warning" data-bs-dismiss="modal">
+              OK
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Fim do modal -->
+  </div>
+
+  <div id="janela-download">
+    <!-- Modal -->
+    <div class="modal fade" style="backdrop-filter: blur(5px)" id="modal-download-classificacoes" tabindex="-1"
+      aria-labelledby="label-modal-classificacoes" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="label-modal-classificacoes">Treemap das Classificações</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <figure class="highcharts-figure">
+              <div id="graficoTreemapDownload"></div>
+            </figure>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" onclick="anteriorGraficoTreemapDL()">
+              ◀</button>
+                <button type="button" class="btn btn-primary" onclick="proximoGraficoTreemapDL()">▶</button>
+                <button type="button" class="btn btn-warning" data-bs-dismiss="modal">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Fim do modal -->
+  </div>
+
+</div>
+
+<script type="text/javascript" defer>
+  let dadosAnos = {{ total_anos | tojson }};
+  let totalAssuntos = {{ total_assuntos | tojson}}
+  let totalNgramas = {{ resultados_ngramas | tojson }}
+  dadosAnos = dadosAnos.sort()
+  let vetorDadosAno = [];
+
+  // Coloca os dados de artigos/ano no vetorDadosAno
+  function setDadosAnos() {
+    for (let i = 0; i < dadosAnos.length; i++) {
+      vetorDadosAno.push([dadosAnos[i][0], dadosAnos[i][1]])
+    }
+  }
+
+  // Retorna o objeto necessário para o a série do Treemap
+  function entradaTreemap(termoDados) {
+    let termo = termoDados[0]
+    let valor = termoDados[1]
+    return { name: termo, value: valor, colorValue: valor };
+  }
+
+  // Retorna um vetor com os termos do treemap
+  function setTermosTreemap() {
+    let vetorTermosTreemap = [];
+
+    for (let i = 0; i < totalAssuntos.length; i++) {
+      vetorTermosTreemap.push(entradaTreemap(totalAssuntos[i]));
+    }
+
+    // Coloca os ngramas no vetor de termos Treemap
+    totalNgramas.forEach((termo, qtd) => {
+      vetorTermosTreemap.push(entradaTreemap([termo[0][0] + " " + termo[0][1], qtd]))
+    })
+
+    return vetorTermosTreemap;
+  }
+  function teste() {
+    teste45 = Highcharts.chart()
+
+    teste45
+  }
+  // Função para mostrar o gráfico de artigos por ano - gráfico de linha
+  function mostrarGraficoLinha() {
+    Highcharts.chart("graficoLinha", {
+      title: {
+        text: "Distribuição de Artigos por Ano",
+      },
+
+      subtitle: {
+        text: 'Fontes: <a href="" target="_blank">ScienceDirect, SpringerLink</a>', // TODO: Linkar as fontes de acordo com a seleção
+      },
+
+      yAxis: {
+        title: {
+          text: "Quantidade de Artigos",
+        },
+      },
+
+      xAxis: {
+        tickInterval: 1,
+        labels: {
+          enabled: true,
+          formatter: function () { return vetorDadosAno[this.value][0]; },
+        }
+      },
+
+      legend: {
+        layout: "vertical",
+        align: "center",
+        verticalAlign: "bottom",
+      },
+
+      plotOptions: {
+        series: {
+          label: {
+            connectorAllowed: false,
+          },
+        },
+      },
+
+      series: [
+        {
+          name: "Artigos",
+          data: vetorDadosAno,
+        },
+      ],
+
+      responsive: {
+        rules: [
+          {
+            condition: {
+              maxWidth: 500,
+            },
+            chartOptions: {
+              legend: {
+                layout: "horizontal",
+                align: "center",
+                verticalAlign: "bottom",
+              },
+            },
+          },
+        ],
+      },
+    });
+  }
+
+  // Função para mostrar o gráfico de termos mais comuns - gráfico treemap
+  function mostrarGraficoTreemap() {
+    Highcharts.chart('graficoTreemap', {
+      plotOptions: {
+        treemap: {
+          stacking: 'normal',
+          cropThreshold: 10,
+          dataGrouping: {
+            enabled: true
+          }
+        }
+      },
+      colorAxis: {
+        minColor: '#FFFFFF',
+        maxColor: Highcharts.getOptions().colors[0]
+      },
+      series: [{
+        type: 'treemap',
+        layoutAlgorithm: 'squarified',
+        data: setTermosTreemap()
+      }],
+      title: {
+        text: 'Termos mais relevantes'
+      }
+    });
+  }
+  setDadosAnos();
+  mostrarGraficoLinha();
+  mostrarGraficoTreemap();
+</script>
+{% endblock %}
