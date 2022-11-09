@@ -1,3 +1,5 @@
+import nltk
+nltk.download('stopwords')
 from collections import Counter
 from nltk import bigrams, word_tokenize
 from nltk.corpus import stopwords
