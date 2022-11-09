@@ -12,7 +12,7 @@ def print_json(arg):
     return response
 
 app = Flask(__name__)
-CORS(app)
+CORS(app) # MUDAR DEPOIS
 
 @app.route("/")
 def index():
@@ -32,6 +32,7 @@ def busca():
         busca_rapida = True
     else:
         busca_rapida = False
+    print(termo_busca)
     return print_json(efetuarBusca(termo_busca, busca_rapida, lista_bases))
 
 
