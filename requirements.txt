@@ -1,6 +1,5 @@
 flask
 nltk
-collections
 requests
 progressbar
 xmltodict
