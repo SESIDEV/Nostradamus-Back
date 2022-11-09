@@ -19,7 +19,7 @@ def index():
 
 @main.route("/search", methods=['GET'])
 def busca():
-    termo_busca = request.args.get('search')
+    termo_busca = request.args.get('busca')
     lista_bases = list()
     if request.args.get('springerlink'):
         lista_bases.append("springerlink")
