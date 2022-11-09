@@ -2,6 +2,7 @@ from flask import Flask, request
 from files.busca import efetuarBusca
 import json
 from flask import make_response
+from flask_cors import CORS
 
 def print_json(arg):
     response = make_response(json.dumps(arg, sort_keys=True, indent=4))
@@ -9,6 +10,7 @@ def print_json(arg):
     return response
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route("/")
 def index():
@@ -28,7 +30,7 @@ def busca():
         busca_rapida = True
     else:
         busca_rapida = False
-    return print_json(efetuarBusca(termo_busca, lista_bases, busca_rapida))
+    return print_json(efetuarBusca(termo_busca, busca_rapida, lista_bases))
 
 
 @app.route("/result")
@@ -36,4 +38,4 @@ def resultado():
     return ""
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host="127.0.0.1", port=5001)
