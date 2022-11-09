@@ -1,5 +1,12 @@
 from flask import Flask, request
 from busca import efetuarBusca
+import json
+from flask import make_response
+
+def print_json(arg):
+    response = make_response(json.dumps(arg, sort_keys=True, indent=4))
+    response.headers['Content-type'] = "application/json"
+    return response
 
 app = Flask(__name__)
 
