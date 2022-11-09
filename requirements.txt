@@ -1,5 +1,4 @@
 flask
-json
 nltk
 pprint
 collections
