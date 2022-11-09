@@ -59,11 +59,11 @@ def efetuarBusca(termo_busca, busca_rapida, lista_bases):
 
     print(f"Busca sobre '{termo_busca}' concluída.\n")
 
-    #retornarCsv(resultado_ngramas, termo_busca)
+    #retornarResultado(resultado_ngramas, termo_busca)
 
     return {"resultado_ngramas": resultado_ngramas, "artigos_em_string_json": artigos_em_string_json, "total_assuntos": total_assuntos, "total_anos": total_anos}
 
 
-def retornarTxt(resultado, termo_busca):
-    with open(f"resultado_{termo_busca}.txt", "w", encoding='utf8') as output:
+def retornarResultado(resultado, token_usuario):
+    with open(f"resultado_{token_usuario}.json", "w", encoding='utf8') as output:
         pprint(resultado, output)
