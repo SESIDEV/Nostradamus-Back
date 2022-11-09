@@ -1,6 +1,5 @@
 flask
 nltk
-pprint
 collections
 requests
 progressbar
