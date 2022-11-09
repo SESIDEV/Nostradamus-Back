@@ -1,8 +1,8 @@
-import os, json, obterArtigo
+import os, json, files.obterArtigo as obterArtigo
 from pprint import pprint
 from collections import Counter
 #from PubMed import obterArtigos_PubMed
-from ngrama import n_grams_json
+from files.ngrama import n_grams_json
 
 os.system('cls')
 
