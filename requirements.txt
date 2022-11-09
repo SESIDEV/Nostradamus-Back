@@ -3,4 +3,3 @@ nltk
 requests
 progressbar
 xmltodict
-gunicorn
