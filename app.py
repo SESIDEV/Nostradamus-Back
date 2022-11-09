@@ -1,7 +1,9 @@
 from flask import Flask, request
 from files.busca import efetuarBusca
-import json
+import json, nltk
 from flask import make_response
+
+nltk.download('stopwords')
 
 def print_json(arg):
     response = make_response(json.dumps(arg, sort_keys=True, indent=4))
