@@ -1,7 +1,5 @@
 from collections import Counter
-from multiprocessing import pool
-from re import T
-from nltk import bigrams, FreqDist, word_tokenize
+from nltk import bigrams, word_tokenize
 from nltk.corpus import stopwords
 import json
 

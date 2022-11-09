@@ -1,5 +1,5 @@
 from flask import Flask, request
-from busca import efetuarBusca
+from files.busca import efetuarBusca
 import json
 from flask import make_response
 
