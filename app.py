@@ -21,7 +21,7 @@ def index():
     return 'página principal'
 
 
-@app.route("/search", methods=['GET'])
+@app.route("/search")
 def busca():
     termo_busca = request.args.get('busca')
     lista_bases = list()
