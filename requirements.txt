@@ -1,7 +1,6 @@
 flask
 nltk
 requests
-progressbar
 progressbar2
 xmltodict
 gunicorn
