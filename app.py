@@ -3,7 +3,7 @@ from files.busca import efetuarBusca
 import json, nltk
 from flask import make_response
 from flask_cors import CORS
-from conector import incluirNoBanco
+from files.conector import incluirNoBanco
 
 nltk.download('stopwords')
 
