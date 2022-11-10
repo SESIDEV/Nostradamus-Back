@@ -3,7 +3,7 @@ from files.busca import efetuarBusca
 import json, nltk
 from flask import make_response
 from flask_cors import CORS
-from files.conector import incluirNoBanco
+from files.conector import incluirNoBanco, retornarPesquisa
 
 nltk.download('stopwords')
 
@@ -35,15 +35,35 @@ def busca():
         busca_rapida = False
     print(termo_busca)
 
-    resultado = print_json(efetuarBusca(termo_busca, busca_rapida, lista_bases))
+    #resultado = print_json(efetuarBusca(termo_busca, busca_rapida, lista_bases))
+    resultado = efetuarBusca(termo_busca, busca_rapida, lista_bases)
+    resultado2 = json.dumps(resultado)
     
-    incluirNoBanco(resultado)
+    token_retornado = incluirNoBanco(resultado2)
+
+    resposta_formatada = f'''
+    
+    acho que foi
+
+    se foi mesmo, salva esse token aí: {token_retornado}
+    
+    '''
+
+    return resposta_formatada
 
 
 
 @app.route("/result")
 def resultado():
     return "resultado ?"
+
+
+@app.route("/consulta")
+def consulta():
+    token = request.args.get('token')
+    return retornarPesquisa(token)
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
