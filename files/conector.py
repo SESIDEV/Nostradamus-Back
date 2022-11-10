@@ -1,5 +1,4 @@
 import mysql.connector as mydb
-from time import time as tick
 
 def retornarDB():
     print("Conectando ao banco...")
@@ -8,9 +7,7 @@ def retornarDB():
     print("Conectado.")
     return db
 
-def incluirNoBanco(json):
-    token = str(tick())[11:]
-    
+def incluirNoBanco(json, token):
     db = retornarDB()
     cursor = db.cursor()
     string_sql = "INSERT INTO pesquisas (id, json) VALUES (%s, %s)"
@@ -19,7 +16,6 @@ def incluirNoBanco(json):
     db.commit()
     print(cursor.rowcount, "record inserted.")
 
-    return token
 
 def retornarPesquisa(token):
     db = retornarDB()

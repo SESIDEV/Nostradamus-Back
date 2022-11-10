@@ -4,6 +4,7 @@ import json, nltk
 from flask import make_response
 from flask_cors import CORS
 from files.conector import incluirNoBanco, retornarPesquisa
+from time import time as tick
 
 nltk.download('stopwords')
 nltk.download('punkt')
@@ -36,18 +37,19 @@ def busca():
     print(termo_busca)
 
     #resultado = print_json(efetuarBusca(termo_busca, busca_rapida, lista_bases))
-    resultado = efetuarBusca(termo_busca, busca_rapida, lista_bases)
-    resultado2 = json.dumps(resultado)
+    resultado = json.dumps(efetuarBusca(termo_busca, busca_rapida, lista_bases))
     
-    token_retornado = incluirNoBanco(resultado2)
+    token = str(tick())[11:]
 
     resposta_formatada = f'''
     
-    acho que foi
+    acho que foi \n\n
 
-    se foi mesmo, salva esse token aí: {token_retornado}
+    se foi mesmo, salva esse token aí: {token}
     
     '''
+
+    incluirNoBanco(resultado, token) # DESCOBRIR UM JEITO DE FAZER ISSO DEPOIS DE RETONAR O TOKEN
 
     return resposta_formatada
 
