@@ -2,8 +2,10 @@ import mysql.connector as mydb
 from time import time as tick
 
 def retornarDB():
+    print("Conectando ao banco...")
     db = mydb.connect(host="containers-us-west-110.railway.app",user="root",password="LyTaKtOjN58WLwYREa5Z",database="railway")
-    #dblocal = mydb.connect(host="localhost",user="root",password="admin",database="railway")
+    #db = mydb.connect(host="localhost",user="root",password="admin",database="railway")
+    print("Conectado.")
     return db
 
 def incluirNoBanco(json):
