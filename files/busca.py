@@ -60,4 +60,4 @@ def efetuarBusca(termo_busca, busca_rapida, lista_bases):
 
     #retornarResultado(resultado_ngramas, termo_busca)
 
-    return {"resultado_ngramas": resultado_ngramas, "artigos_em_string_json": artigos_em_string_json, "total_assuntos": total_assuntos, "total_anos": total_anos}
+    return {"resultado_ngramas": resultado_ngramas, "artigos_em_string_json": [], "total_assuntos": total_assuntos, "total_anos": total_anos}
