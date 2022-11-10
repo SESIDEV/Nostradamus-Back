@@ -2,9 +2,9 @@ import mysql.connector as mydb
 from time import time as tick
 
 def retornarDB():
-    #db = mydb.connect(host="containers-us-west-110.railway.app",user="root",password="LyTaKtOjN58WLwYREa5Z",database="railway")
-    dblocal = mydb.connect(host="localhost",user="root",password="admin",database="railway")
-    return dblocal
+    db = mydb.connect(host="containers-us-west-110.railway.app",user="root",password="LyTaKtOjN58WLwYREa5Z",database="railway")
+    #dblocal = mydb.connect(host="localhost",user="root",password="admin",database="railway")
+    return db
 
 def incluirNoBanco(json):
     token = str(tick())[11:]
