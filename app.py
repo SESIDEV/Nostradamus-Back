@@ -6,7 +6,7 @@ from flask_cors import CORS
 from files.conector import incluirNoBanco, retornarPesquisa
 
 nltk.download('stopwords')
-
+nltk.download('punkt')
 def print_json(arg):
     response = make_response(json.dumps(arg, sort_keys=True, indent=4))
     response.headers['Content-type'] = "application/json"
