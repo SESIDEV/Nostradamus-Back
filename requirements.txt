@@ -4,3 +4,5 @@ requests
 progressbar
 xmltodict
 gunicorn
+mysql-connector-python
+flask_cors

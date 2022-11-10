@@ -3,6 +3,7 @@ from files.busca import efetuarBusca
 import json, nltk
 from flask import make_response
 from flask_cors import CORS
+from conector import incluirNoBanco
 
 nltk.download('stopwords')
 
@@ -33,12 +34,16 @@ def busca():
     else:
         busca_rapida = False
     print(termo_busca)
-    return print_json(efetuarBusca(termo_busca, busca_rapida, lista_bases))
+
+    resultado = print_json(efetuarBusca(termo_busca, busca_rapida, lista_bases))
+    
+    incluirNoBanco(resultado)
+
 
 
 @app.route("/result")
 def resultado():
-    return ""
+    return "resultado ?"
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -1,4 +1,4 @@
-import os, json, files.obterArtigo as obterArtigo
+import os, files.obterArtigo as obterArtigo
 from pprint import pprint
 from collections import Counter
 #from PubMed import obterArtigos_PubMed
@@ -62,8 +62,3 @@ def efetuarBusca(termo_busca, busca_rapida, lista_bases):
     #retornarResultado(resultado_ngramas, termo_busca)
 
     return {"resultado_ngramas": resultado_ngramas, "artigos_em_string_json": artigos_em_string_json, "total_assuntos": total_assuntos, "total_anos": total_anos}
-
-
-def retornarResultado(resultado, token_usuario):
-    with open(f"resultado_{token_usuario}.json", "w", encoding='utf8') as output:
-        pprint(resultado, output)
