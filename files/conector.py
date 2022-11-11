@@ -20,24 +20,24 @@ def prepararParaPesquisa(token): #   ESTÁGIO 2 (RETORNA DADOS NECESSÁRIOS PARA
     db = retornarDB()
     cursor = db.cursor()
     parametros = (token,)
-    cursor.execute(set_in_progress, parametros)
+    cursor.execute(set_in_progress, parametros) # ALTERA O STATUS DO REQUEST PARA 'EM PROGRESSO'
     db.commit()
-    cursor.execute(get_full_request, parametros)
+    cursor.execute(get_full_request, parametros) # BUSCA OS DADOS DO REQUEST
 
 def incluirNoBanco(token, json): #   ESTÁGIO 3
     db = retornarDB()
     cursor = db.cursor()
     parametros = (token, json)
-    cursor.execute(add_research, parametros)
+    cursor.execute(add_research, parametros) # ADICIONA A BUSCA COMPLETA NA TABELA DE PESQUISAS
     parametros2 = (token,)
-    cursor.execute(set_done, parametros2)
+    cursor.execute(set_done, parametros2) # ALTERA O STATUS DO REQUEST PARA CONCLUÍDO
     db.commit()
 
 def salvarRequest(token, termo_busca, busca_rapida, bases): #   ESTÁGIO 0
     db = retornarDB()
     cursor = db.cursor()
     parametros = (token, termo_busca, busca_rapida, bases)
-    cursor.execute(add_request, parametros)
+    cursor.execute(add_request, parametros) # REGISTRA O REQUEST NA TABELA DE REQUESTS PENDENTES
     db.commit()
 
 def retornarPesquisa(token):
@@ -45,7 +45,7 @@ def retornarPesquisa(token):
     cursor = db.cursor()
     parametros = (token,)
     valor = ''
-    cursor.execute(lookup_reserach, parametros)
+    cursor.execute(lookup_reserach, parametros) # RETORNA UMA PESQUISA PRONTA NA TABELA DE PESQUISAS
 
     for x in cursor:
         print(x[0])
@@ -57,7 +57,7 @@ def buscarPesquisasPendentes(): #   ESTÁGIO 1 (EXECUTAR SEMPRE)
     db = retornarDB()
     cursor = db.cursor()
     valor = ''
-    cursor.execute(get_pending)
+    cursor.execute(get_pending) # BUSCA POR REQUESTS PENDENTES
 
     for x in cursor:
         valor = x[0]

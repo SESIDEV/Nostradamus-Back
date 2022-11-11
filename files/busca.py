@@ -1,6 +1,5 @@
 import os, files.obterArtigo as obterArtigo
 from collections import Counter
-#from PubMed import obterArtigos_PubMed
 from files.ngrama import n_grams_json
 
 os.system('cls')
