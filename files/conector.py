@@ -36,7 +36,7 @@ def incluirNoBanco(token, json): #   ESTÁGIO 3
 def salvarRequest(token, termo_busca, busca_rapida, bases): #   ESTÁGIO 0
     db = retornarDB()
     cursor = db.cursor()
-    parametros = (token, termo_busca, busca_rapida, bases)
+    parametros = (token, termo_busca, 0, 0, busca_rapida, bases)
     cursor.execute(add_request, parametros) # REGISTRA O REQUEST NA TABELA DE REQUESTS PENDENTES
     db.commit()
 
