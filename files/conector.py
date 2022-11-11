@@ -6,6 +6,7 @@ set_done = "UPDATE requests SET inProgress = 0 AND done = 1 WHERE input = %s"
 add_request = "INSERT INTO requests (id, input, inProcess, done, fastSearch, selectedBases) VALUES (%s, %s, %s, %s, %s, %s)"
 add_research = "INSERT INTO pesquisas (id, json) VALUES (%s, %s)"
 lookup_reserach = "SELECT json FROM pesquisas WHERE id = %s"
+lookup_request = "SELECT * FROM requests WHERE id = %s"
 get_pending = "SELECT id FROM requests WHERE done = 0 AND inProcess = 0"
 get_full_request = "SELECT input, fastSearch, selectedBases FROM requests WHERE id = %s"
 
@@ -40,6 +41,18 @@ def salvarRequest(token, termo_busca, busca_rapida, bases): #   ESTÁGIO 0
     cursor.execute(add_request, parametros) # REGISTRA O REQUEST NA TABELA DE REQUESTS PENDENTES
     db.commit()
 
+def retornarRequest(token):
+    db = retornarDB()
+    cursor = db.cursor()
+    parametros = (token,)
+    valor = ''
+    cursor.execute(lookup_request, parametros) # RETORNA UM REQUEST ESPECÍFICO
+
+    for x in cursor:
+        valor = x
+
+    return valor
+
 def retornarPesquisa(token):
     db = retornarDB()
     cursor = db.cursor()
@@ -48,7 +61,6 @@ def retornarPesquisa(token):
     cursor.execute(lookup_reserach, parametros) # RETORNA UMA PESQUISA PRONTA NA TABELA DE PESQUISAS
 
     for x in cursor:
-        print(x[0])
         valor = x[0]
 
     return valor
@@ -61,6 +73,5 @@ def buscarPesquisasPendentes(): #   ESTÁGIO 1 (EXECUTAR SEMPRE)
 
     for x in cursor:
         valor = x[0]
-
 
     return valor

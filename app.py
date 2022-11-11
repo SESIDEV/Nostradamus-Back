@@ -2,7 +2,7 @@ from flask import Flask, request
 import json, nltk
 from flask import make_response
 from flask_cors import CORS
-from files.conector import retornarPesquisa, salvarRequest
+from files.conector import retornarRequest, salvarRequest, retornarPesquisa
 from time import time as tick
 
 nltk.download('stopwords')
@@ -51,8 +51,14 @@ def resultado():
 @app.route("/consulta")
 def consulta():
     token = request.args.get('token')
-    return retornarPesquisa(token)
+    tupla = retornarRequest(token) # REQUEST DE PESQUISA
 
+    if tupla[3] == 0: # SE A PESQUISA AINDA NÃO FOI FEITA
+        return 'not ready'
+    elif tupla[2] == 1: # SE A PESQUISA NÃO ESTÁ SENDO FEITA
+        return 'ongoing'
+    else:
+        return retornarPesquisa(token)
 
 
 if __name__ == "__main__":
