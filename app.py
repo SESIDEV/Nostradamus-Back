@@ -40,18 +40,10 @@ def busca():
     resultado = json.dumps(efetuarBusca(termo_busca, busca_rapida, lista_bases))
     
     token = str(tick())[11:]
-
-    resposta_formatada = f'''
     
-    acho que foi \n\n
-
-    se foi mesmo, salva esse token aí: {token}
-    
-    '''
-
     incluirNoBanco(resultado, token) # DESCOBRIR UM JEITO DE FAZER ISSO DEPOIS DE RETONAR O TOKEN
 
-    return resposta_formatada
+    return json.dumps({'token': token})
 
 
 
