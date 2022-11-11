@@ -54,9 +54,9 @@ def consulta():
     tupla = retornarRequest(token) # REQUEST DE PESQUISA
 
     if tupla[3] == 0: # SE A PESQUISA AINDA NÃO FOI FEITA
-        return 'not ready'
+        return {"resposta":"not ready"}
     elif tupla[2] == 1: # SE A PESQUISA NÃO ESTÁ SENDO FEITA
-        return 'ongoing'
+        return {"resposta":"ongoing"}
     else:
         return retornarPesquisa(token)
 
