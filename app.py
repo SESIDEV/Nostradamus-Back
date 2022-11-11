@@ -18,11 +18,10 @@ CORS(app) # MUDAR DEPOIS
 
 @app.route("/")
 def index():
-    #return render_template("content/index.html")
     return 'página principal'
 
 
-@app.route("/search")
+@app.route("/search") # definir parametros a serem recebdios pela rota
 def busca():
     termo_busca = request.args.get('busca')
     lista_bases = list()
@@ -36,7 +35,6 @@ def busca():
         busca_rapida = False
     print(termo_busca)
 
-    #resultado = print_json(efetuarBusca(termo_busca, busca_rapida, lista_bases))
     resultado = json.dumps(efetuarBusca(termo_busca, busca_rapida, lista_bases))
     
     token = str(tick())[11:]
