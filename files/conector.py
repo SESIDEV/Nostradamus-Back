@@ -11,8 +11,8 @@ get_full_request = "SELECT input, fastSearch, selectedBases FROM requests WHERE 
 
 def retornarDB():
     print("Conectando ao banco...")
-    #db = mydb.connect(host="containers-us-west-110.railway.app", port="7717", user="root",password="LyTaKtOjN58WLwYREa5Z",database="railway")
-    db = mydb.connect(host="localhost",user="root",password="admin",database="railway")
+    db = mydb.connect(host="containers-us-west-110.railway.app", port="7717", user="root",password="LyTaKtOjN58WLwYREa5Z",database="railway")
+    #db = mydb.connect(host="localhost",user="root",password="admin",database="railway")
     print("Conectado.")
     return db
 
@@ -61,6 +61,6 @@ def buscarPesquisasPendentes(): #   ESTÁGIO 1 (EXECUTAR SEMPRE)
 
     for x in cursor:
         valor = x[0]
-        break
+
 
     return valor
