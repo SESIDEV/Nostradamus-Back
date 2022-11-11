@@ -1,9 +1,8 @@
 from flask import Flask, request
-from files.busca import efetuarBusca
 import json, nltk
 from flask import make_response
 from flask_cors import CORS
-from files.conector import incluirNoBanco, retornarPesquisa
+from files.conector import retornarPesquisa, salvarRequest
 from time import time as tick
 
 nltk.download('stopwords')
@@ -25,24 +24,23 @@ def index():
 def busca():
     termo_busca = request.args.get('busca')
     lista_bases = list()
+    dict_bases = dict()
+    busca_rapida = 0
     if request.args.get('springerlink'):
-        lista_bases.append("springerlink")
+        lista_bases.append("SL")
     if request.args.get('sciencedirect'):
-         lista_bases.append("sciencedirect")   
+         lista_bases.append("SD")   
     if request.args.get('busca-rapida'):
-        busca_rapida = True
-    else:
-        busca_rapida = False
-    print(termo_busca)
+        busca_rapida = 1
 
-    resultado = json.dumps(efetuarBusca(termo_busca, busca_rapida, lista_bases))
+    dict_bases['bases']=lista_bases
+    bases = json.dumps(dict_bases)
     
     token = str(tick())[11:]
     
-    incluirNoBanco(resultado, token) # DESCOBRIR UM JEITO DE FAZER ISSO DEPOIS DE RETONAR O TOKEN
+    salvarRequest(token, termo_busca, busca_rapida, bases)
 
     return json.dumps({'token': token})
-
 
 
 @app.route("/result")

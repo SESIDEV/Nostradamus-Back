@@ -20,12 +20,12 @@ def efetuarBusca(termo_busca, busca_rapida, lista_bases):
     artigos_total_ngramas = list()
     artigos_em_string_json = list()
 
-    if "sciencedirect" in lista_bases:
+    if "SD" in lista_bases:
         print(f"[ScienceDirect]: Pesquisando informações sobre: {termo_busca}")
         artigos_retornados.extend(
             obterArtigo.ScienceDirect(termo_formatado, busca_rapida))
 
-    if "springerlink" in lista_bases:
+    if "SL" in lista_bases:
         print(f"[SpringerLink]: Pesquisando informações sobre: {termo_busca}")
         artigos_retornados.extend(
             obterArtigo.SpringerLink(termo_formatado, busca_rapida))
