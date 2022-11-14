@@ -10,6 +10,15 @@ api_key_busca_sciencedirect = '7f59af901d2d86f78a1fd60c1bf9426a'  # Key para bus
 api_key_springerlink = '0c43e1aa36f88f6d3215f4223f6e2306' # Key para API do SpringerLink
 
 def ScienceDirect(termo, busca_rapida):
+    """ 
+    Função que irá retornar para o módulo de buscas a lista de artigos de acordo com o termo pesquisado na base do ScienceDirect.
+    Parâmetros:
+    termo (str): String contendo o termo que o usuário deseja pesquisar na base de dados do ScienceDirect.
+    busca_rapida (bool): Boolean que irá determinar se o usuário optou pela busca rápida/simples.
+    Retorno:
+    lista_artigos (list): Lista contendo os artigos que estão de acordo com o termo pesquisado.
+    """
+
     indice_busca = 1
     idx = 1
     links_artigos = list()
@@ -96,6 +105,15 @@ def ScienceDirect(termo, busca_rapida):
 
 
 def SpringerLink(termo, busca_rapida):
+    """ 
+    Função que irá retornar para o módulo de buscas a lista de artigos de acordo com o termo pesquisado na base do SpringerLink.
+    Parâmetros:
+    termo (str): String contendo o termo que o usuário deseja pesquisar na base de dados do SpringerLinkf.
+    busca_rapida (bool): Boolean que irá determinar se o usuário optou pela busca rápida/simples.
+    Retorno:
+    lista_artigos (list): Lista contendo os artigos que estão de acordo com o termo pesquisado.
+    """
+
     indice_busca = 1
     quantidade = 10
     artigos_brutos = list()
