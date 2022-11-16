@@ -1,8 +1,8 @@
 import mysql.connector as mydb
 
 #STRINGS SQL:
-set_in_progress = "UPDATE requests SET inProgress = 1 WHERE id = %s"
-set_done = "UPDATE requests SET inProgress = 0 AND done = 1 WHERE input = %s"
+set_in_process = "UPDATE requests SET inProcess = 1 WHERE id = %s"
+set_done = "UPDATE requests SET inProcess = 0 AND done = 1 WHERE input = %s"
 add_request = "INSERT INTO requests (id, input, inProcess, done, fastSearch, selectedBases) VALUES (%s, %s, %s, %s, %s, %s)"
 add_research = "INSERT INTO pesquisas (id, json) VALUES (%s, %s)"
 lookup_reserach = "SELECT json FROM pesquisas WHERE id = %s"
@@ -21,9 +21,14 @@ def prepararParaPesquisa(token): #   ESTÁGIO 2 (RETORNA DADOS NECESSÁRIOS PARA
     db = retornarDB()
     cursor = db.cursor()
     parametros = (token,)
-    cursor.execute(set_in_progress, parametros) # ALTERA O STATUS DO REQUEST PARA 'EM PROGRESSO'
+    cursor.execute(set_in_process, parametros) # ALTERA O STATUS DO REQUEST PARA 'EM PROCESSO'
     db.commit()
     cursor.execute(get_full_request, parametros) # BUSCA OS DADOS DO REQUEST
+    
+    for x in cursor:
+        valor = x
+
+    return valor
 
 def incluirNoBanco(token, json): #   ESTÁGIO 3
     db = retornarDB()

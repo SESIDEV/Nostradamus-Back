@@ -10,7 +10,7 @@ def rodarPesquisasContinuas():
 
         if token_encontrado != '':
             print('Requisição encontrada.')
-            dados_pesquisa = prepararParaPesquisa() # RETORNA OS DADOS DO REQUEST E ALTERA SEU STATUS PARA 'EM PROGRESSO'
+            dados_pesquisa = prepararParaPesquisa(token_encontrado) # RETORNA OS DADOS DO REQUEST E ALTERA SEU STATUS PARA 'EM PROGRESSO'
 
             termo_busca = dados_pesquisa[0]
             bool_busca_rapida = dados_pesquisa[1]
