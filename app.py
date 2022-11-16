@@ -54,7 +54,7 @@ def resultado():
 def consulta():
     token = request.args.get('token')
     tupla = retornarRequest(token) # REQUEST DE PESQUISA
-
+    print(f'Tupla retornada: {tupla}')
     if tupla[3] == 0: # SE A PESQUISA AINDA NÃO FOI FEITA
         return {"resposta":"not ready"}
     elif tupla[2] == 1: # SE A PESQUISA NÃO ESTÁ SENDO FEITA
