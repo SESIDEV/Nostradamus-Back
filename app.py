@@ -5,6 +5,7 @@ from flask_cors import CORS
 from files.conector import retornarRequisicao, salvarRequisicao, retornarPesquisa
 from time import time as tick
 from files.looping import rodarPesquisasContinuas
+import threading
 
 nltk.download('stopwords')
 nltk.download('punkt')
@@ -66,4 +67,5 @@ def checagem():
     rodarPesquisasContinuas()
 
 if __name__ == "__main__":
+    threading.Thread(target=rodarPesquisasContinuas).start()
     app.run(debug=True)
