@@ -3,7 +3,7 @@ from busca import efetuarBusca
 import json, time
 
 def rodarPesquisasContinuas():
-    while (1 == 1):
+    while True:
         time.sleep(60)
         print('Buscando requisição...')
         token_encontrado = buscarPesquisasPendentes() # BUSCA POR REQUESTS COM STATUS PENDENTES
