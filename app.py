@@ -2,7 +2,7 @@ from flask import Flask, request
 import json, nltk
 from flask import make_response
 from flask_cors import CORS
-from files.conector import retornarRequest, salvarRequest, retornarPesquisa
+from files.conector import retornarRequisicao, salvarRequisicao, retornarPesquisa
 from time import time as tick
 from files.looping import rodarPesquisasContinuas
 import threading
@@ -40,7 +40,7 @@ def busca():
     
     token = str(tick())[11:]
     
-    salvarRequest(token, termo_busca, busca_rapida, bases)
+    salvarRequisicao(token, termo_busca, busca_rapida, bases)
 
     return json.dumps({'token': token})
 
@@ -53,15 +53,18 @@ def resultado():
 @app.route("/consulta")
 def consulta():
     token = request.args.get('token')
-    tupla = retornarRequest(token) # REQUEST DE PESQUISA
-    print(f'Tupla retornada: {tupla}')
+    tupla = retornarRequisicao(token) # REQUEST DE PESQUISA
+
     if tupla[3] == 0: # SE A PESQUISA AINDA NÃO FOI FEITA
-        return {"resposta":"not ready"}
+        return {"resposta":"não realizada"}
     elif tupla[2] == 1: # SE A PESQUISA NÃO ESTÁ SENDO FEITA
-        return {"resposta":"ongoing"}
+        return {"resposta":"em curso"}
     else:
         return retornarPesquisa(token)
 
+@app.route("/checar")
+def checagem():
+    rodarPesquisasContinuas()
 
 if __name__ == "__main__":
     threading.Thread(target=rodarPesquisasContinuas).start()
