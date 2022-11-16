@@ -4,6 +4,8 @@ from flask import make_response
 from flask_cors import CORS
 from files.conector import retornarRequest, salvarRequest, retornarPesquisa
 from time import time as tick
+from files.looping import rodarPesquisasContinuas
+import threading
 
 nltk.download('stopwords')
 nltk.download('punkt')
@@ -62,4 +64,5 @@ def consulta():
 
 
 if __name__ == "__main__":
+    threading.Thread(target=rodarPesquisasContinuas).start()
     app.run(debug=True)
