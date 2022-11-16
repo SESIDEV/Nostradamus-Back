@@ -73,5 +73,6 @@ def buscarPesquisasPendentes(): #   ESTÁGIO 1 (EXECUTAR SEMPRE)
 
     for x in cursor:
         valor = x[0]
+        break
 
     return valor
