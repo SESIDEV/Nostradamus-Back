@@ -15,7 +15,7 @@ def print_json(arg):
     return response
 
 app = Flask(__name__)
-CORS(app) # MUDAR DEPOIS
+CORS(app) # Mudar depois, desta forma ele faz com que qualquer request de qualquer site seja permitido, idealmente queremos apenas de fontes que conhecemos
 
 @app.route("/")
 def index():
