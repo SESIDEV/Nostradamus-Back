@@ -60,7 +60,9 @@ def consulta():
         return {"resposta":"em curso"}
     else:
         return retornarPesquisa(token)
+
 threading.Thread(target=rodarPesquisasContinuas).start()
+
 if __name__ == "__main__":
     
     app.run(debug=False)

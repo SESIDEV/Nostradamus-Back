@@ -4,7 +4,7 @@ import json, time
 
 def rodarPesquisasContinuas():
     while True:
-        time.sleep(5)
+        time.sleep(60)
         print('\n##################################################\nBuscando requisição...')
         token_encontrado = buscarPesquisasPendentes() # BUSCA POR REQUESTS COM STATUS PENDENTES
 
