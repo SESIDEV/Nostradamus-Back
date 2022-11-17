@@ -22,7 +22,7 @@ def index():
     return 'página principal'
 
 
-@app.route("/search") # definir parametros a serem recebdios pela rota
+@app.route("/search")
 def busca():
     termo_busca = request.args.get('busca')
     lista_bases = list()
@@ -51,12 +51,16 @@ def resultado():
 
 @app.route("/consulta")
 def consulta():
+    verdadeiro = 1
+    falso = 0
     token = request.args.get('token')
-    tupla = retornarRequisicao(token) # REQUEST DE PESQUISA
-
-    if tupla[3] == 0: # SE A PESQUISA AINDA NÃO FOI FEITA
+    tupla = retornarRequisicao(token) # RETORNA BOOLEANS (inProcess, done)
+    
+    if len(tupla) != 2:
+        return {"resposta":"token inválido"}
+    elif tupla[1] == falso: # SE A PESQUISA AINDA NÃO FOI FEITA
         return {"resposta":"não realizada"}
-    elif tupla[2] == 1: # SE A PESQUISA NÃO ESTÁ SENDO FEITA
+    elif tupla[0] == verdadeiro: # SE A PESQUISA ESTÁ SENDO FEITA
         return {"resposta":"em curso"}
     else:
         return retornarPesquisa(token)

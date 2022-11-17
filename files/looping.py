@@ -3,6 +3,10 @@ from busca import efetuarBusca
 import json, time
 
 def rodarPesquisasContinuas():
+    """
+    Função para realizar, a cada 1 minuto, uma consulta no banco de dados buscando por requisições de pesquisas.
+    
+    """
     while True:
         time.sleep(60)
         print('\n##################################################\nBuscando requisição...')

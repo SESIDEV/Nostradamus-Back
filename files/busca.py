@@ -1,14 +1,6 @@
-import os, files.obterArtigo as obterArtigo
+import files.obterArtigo as obterArtigo
 from collections import Counter
 from files.ngrama import n_grams_json
-
-os.system('cls')
-
-def buscaMultipla(palavras):
-    buscas = palavras.split(";")
-    for termo_busca in buscas:
-        efetuarBusca(termo_busca)
-
 
 def efetuarBusca(termo_busca, busca_rapida, lista_bases):
     """
@@ -45,7 +37,7 @@ def efetuarBusca(termo_busca, busca_rapida, lista_bases):
     
     #PARA NGRAMAS
     for classe_artigo in artigos_retornados:
-        artigos_total_ngramas += classe_artigo.ngramas
+        artigos_total_ngramas += classe_artigo.ngramas # A LISTA DE NGRAMAS ESTÁ VAZIA PORQUE OS NGRAMAS SÓ SÃO GERADOS NA LINHA 60
 
 
     #PARA ARTIGOS
