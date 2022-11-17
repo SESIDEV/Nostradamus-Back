@@ -18,6 +18,7 @@ def retornarDB():
     return db
 
 def prepararParaPesquisa(token): #   ESTÁGIO 2 (RETORNA DADOS NECESSÁRIOS PARA EFETUAR A BUSCA COMPLETA)
+    print('Buscando dados do Request para realizar a Pesquisa...')
     db = retornarDB()
     cursor = db.cursor()
     parametros = (token,)
@@ -31,6 +32,7 @@ def prepararParaPesquisa(token): #   ESTÁGIO 2 (RETORNA DADOS NECESSÁRIOS PARA
     return valor
 
 def incluirNoBanco(token, json): #   ESTÁGIO 3
+    print('Pesquisa sendo adicionada ao banco...')
     db = retornarDB()
     cursor = db.cursor()
     parametros = (token, json)
@@ -42,6 +44,7 @@ def incluirNoBanco(token, json): #   ESTÁGIO 3
     print('Status alterado para concluído.\n')
 
 def salvarRequisicao(token, termo_busca, busca_rapida, bases): #   ESTÁGIO 0
+    print('Usuário adicionou busca de Pesquisa')
     db = retornarDB()
     cursor = db.cursor()
     parametros = (token, termo_busca, 0, 0, busca_rapida, bases)
@@ -49,6 +52,7 @@ def salvarRequisicao(token, termo_busca, busca_rapida, bases): #   ESTÁGIO 0
     db.commit()
 
 def retornarRequisicao(token):
+    print('Usuário iniciou busca de Requisição')
     db = retornarDB()
     cursor = db.cursor()
     parametros = (token,)
@@ -61,6 +65,7 @@ def retornarRequisicao(token):
     return valor
 
 def retornarPesquisa(token):
+    print('Usuário iniciou busca de Pesquisa')
     db = retornarDB()
     cursor = db.cursor()
     parametros = (token,)
