@@ -42,3 +42,5 @@ def rodarPesquisaSingular():
         incluirNoBanco(token_encontrado, resultadoJson) # ADICIONA A BUSCA COMPLETA NA TABELA DE PESQUISAS E ALTERA O STATUS DO REQUEST PARA CONCLUÍDO
     else:
         print('Nenhuma requisição pendente.')
+
+    return "acho que foi"
