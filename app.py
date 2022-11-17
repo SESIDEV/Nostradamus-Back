@@ -49,10 +49,6 @@ def busca():
 def resultado():
     return "resultado ?"
 
-@app.route("/rodar")
-def rodar():
-    rodarPesquisaSingular()
-
 @app.route("/consulta")
 def consulta():
     token = request.args.get('token')
@@ -64,7 +60,7 @@ def consulta():
         return {"resposta":"em curso"}
     else:
         return retornarPesquisa(token)
-
+threading.Thread(target=rodarPesquisasContinuas).start()
 if __name__ == "__main__":
-    threading.Thread(target=rodarPesquisasContinuas).start()
+    
     app.run(debug=False)
