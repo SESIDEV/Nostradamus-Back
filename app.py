@@ -4,7 +4,7 @@ from flask import make_response
 from flask_cors import CORS
 from files.conector import retornarRequisicao, salvarRequisicao, retornarPesquisa
 from time import time as tick
-from files.looping import rodarPesquisasContinuas
+from files.looping import rodarPesquisasContinuas, rodarPesquisaSingular
 import threading
 
 nltk.download('stopwords')
@@ -49,6 +49,9 @@ def busca():
 def resultado():
     return "resultado ?"
 
+@app.route("/rodar")
+def rodar():
+    rodarPesquisaSingular()
 
 @app.route("/consulta")
 def consulta():
