@@ -25,20 +25,21 @@ def ScienceDirect(termo, busca_rapida):
     lista_artigos = list()
 
     if busca_rapida:
-        limite = 2
+        limite = 10
+        loop = 1
     else:
         limite = 100
+        loop = 5
 
-    while (idx <= 5):  # LOOP PARA PEGAR MAIS DE 100 LINKS
+    while (idx <= loop):  # LOOP PARA PEGAR MAIS DE 100 LINKS
         # BUSCA TODOS OS LINKS DOS ARTIGOS QUE CONTÉM O TERMO BUSCADO
         url = f"https://api.elsevier.com/content/search/sciencedirect?query={termo}&count={limite}&start={indice_busca}&apikey={api_key_busca_sciencedirect}"
-        time.sleep(1)  # Sleep para evitar Erro 429 (excesso de requests)
+
         # RETORNA UM OBJETO 'RESPONSE' COM O METODO GET
         resultado = requests.get(url)
 
         while resultado.status_code != 200:
-            print(
-                f"Erro de requisição: [{resultado.status_code}] {resultado.reason}")
+            print(f"Erro de requisição: [{resultado.status_code}] {resultado.reason}")
             print("Tentando nova conexão...")
             time.sleep(200)
             resultado = requests.get(url)
@@ -52,15 +53,12 @@ def ScienceDirect(termo, busca_rapida):
             for artigo in range(len(artg_todos)):
                 links_artigos.append(
                     artigos['search-results']['entry'][artigo]['link'][0]['@href'])
-            indice_busca += 100
+            indice_busca += limite
             idx += 1
         except KeyError:
             break
 
-    # Útil?
-    del resultado
-
-    print("Carregando artigos...")
+    print("\nCarregando artigos...")
 
     # Barra de Progresso
     for link in progressbar.progressbar(links_artigos):
@@ -132,8 +130,7 @@ def SpringerLink(termo, busca_rapida):
         resultado = requests.get(url)
 
         while resultado.status_code != 200:
-            print(
-                f"Erro de requisição: [{resultado.status_code}] {resultado.reason}")
+            print(f"Erro de requisição: [{resultado.status_code}] {resultado.reason}")
             print("Tentando nova conexão...")
             time.sleep(200)
             resultado = requests.get(url)
@@ -143,7 +140,7 @@ def SpringerLink(termo, busca_rapida):
         artigos_brutos.extend(artigos['records'])
         indice_busca += quantidade
 
-    print("Separando artigos...")
+    print("\nSeparando artigos...")
 
     # TODO: Refatorar
     # Iterando pela quantidade de artigos

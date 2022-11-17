@@ -62,10 +62,6 @@ def consulta():
     else:
         return retornarPesquisa(token)
 
-@app.route("/checar")
-def checagem():
-    rodarPesquisasContinuas()
-
 if __name__ == "__main__":
     threading.Thread(target=rodarPesquisasContinuas).start()
-    app.run(debug=True)
+    app.run(debug=False)

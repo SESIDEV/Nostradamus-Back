@@ -69,6 +69,6 @@ def efetuarBusca(termo_busca, busca_rapida, lista_bases):
     total_anos = list(Counter(total_anos).most_common())
     total_assuntos = list(Counter(total_assuntos).most_common())
 
-    print(f"Busca sobre '{termo_busca}' concluída.\n")
+    print(f"\nBusca sobre '{termo_busca}' concluída.\n")
 
     return {"resultado_ngramas": resultado_ngramas, "artigos_em_string_json": artigos_em_string_json, "total_assuntos": total_assuntos, "total_anos": total_anos}
