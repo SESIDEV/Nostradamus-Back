@@ -57,11 +57,11 @@ def consulta():
     tupla = retornarRequisicao(token) # RETORNA BOOLEANS (inProcess, done)
     
     if len(tupla) != 2:
-        return {"resposta":"token inválido"}
-    elif tupla[1] == falso: # SE A PESQUISA AINDA NÃO FOI FEITA
-        return {"resposta":"não realizada"}
-    elif tupla[0] == verdadeiro: # SE A PESQUISA ESTÁ SENDO FEITA
-        return {"resposta":"em curso"}
+        return {"resposta": 404} # NÃO FOI FEITA NENHUMA BUSCA COM ESTE TOKEN
+    elif tupla[1] == falso: 
+        return {"resposta": 422} # A PESQUISA AINDA NÃO FOI FEITA
+    elif tupla[0] == verdadeiro: 
+        return {"resposta": 102} # A PESQUISA ESTÁ SENDO FEITA
     else:
         return retornarPesquisa(token)
 
