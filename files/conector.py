@@ -1,12 +1,16 @@
-import mysql.connector as mydb
+import os, mysql.connector as mydb
 
 #STRINGS SQL:
+pw = os.environ.get('nostradamus_pass')
+host1 = os.environ.get('nostradamus_host1')
+port1 = os.environ.get('nostradamus_port1')
+scheme = os.environ.get('nostradamus_scheme')
 set_in_process = "UPDATE requests SET inProcess = 1 WHERE id = %s"
 set_done = "UPDATE requests SET inProcess = 0, done = 1 WHERE id = %s"
 add_request = "INSERT INTO requests (id, input, inProcess, done, fastSearch, selectedBases) VALUES (%s, %s, %s, %s, %s, %s)"
 add_research = "INSERT INTO pesquisas (id, json) VALUES (%s, %s)"
 lookup_reserach = "SELECT json FROM pesquisas WHERE id = %s"
-lookup_request = "SELECT inProcess, done FROM requests WHERE id = %s"
+lookup_request_status = "SELECT inProcess, done FROM requests WHERE id = %s"
 get_pending = "SELECT id FROM requests WHERE done = 0 AND inProcess = 0"
 get_full_request = "SELECT input, fastSearch, selectedBases FROM requests WHERE id = %s"
 
@@ -20,8 +24,10 @@ def retornarDB():
     Retorna um objeto MySQLConnection.
     """
     print("\nConectando ao banco...")
-    db = mydb.connect(host="containers-us-west-110.railway.app", port="7717", user="root",password="LyTaKtOjN58WLwYREa5Z",database="railway")
-    #db = mydb.connect(host="localhost",user="root",password="admin",database="railway")
+    if os.environ.get('nostradamus_db_valid1') == os.environ.get('nostradamus_db_valid2'):
+        db = mydb.connect(host="localhost",user="root",password="admin",database=scheme)
+    else:
+        db = mydb.connect(host=host1, port=port1, user="root",password=pw,database=scheme)
     print("Conectado.\n")
     return db
 
@@ -111,9 +117,9 @@ def incluirNoBanco(token, json):
 
 
 
-def retornarRequisicao(token):
+def retornarStatusRequisicao(token):
     """
-    Função para retornar uma requisição feita ao sistema, a partir do número de identificação.
+    Função para retornar o status de uma requisição feita ao sistema, a partir do número de identificação.
     
     Parâmetros:
     token - Número de identificação do request e da pesquisa.
@@ -127,7 +133,7 @@ def retornarRequisicao(token):
     cursor = db.cursor()
     parametros = (token,)
     valor = ''
-    cursor.execute(lookup_request, parametros)
+    cursor.execute(lookup_request_status, parametros)
 
     for x in cursor:
         valor = x
