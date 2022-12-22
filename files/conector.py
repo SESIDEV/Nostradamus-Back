@@ -24,7 +24,7 @@ def retornarDB():
     Retorna um objeto MySQLConnection.
     """
     print("\nConectando ao banco...")
-    if os.environ.get('nostradamus_db_valid1') == os.environ.get('nostradamus_db_valid2'):
+    if os.environ.get('nostradamus_db_valid') == 0:
         db = mydb.connect(host="localhost",user="root",password="admin",database=scheme)
     else:
         db = mydb.connect(host=host1, port=port1, user="root",password=pw,database=scheme)
