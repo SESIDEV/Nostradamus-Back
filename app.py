@@ -15,7 +15,8 @@ def print_json(arg):
     return response
 
 app = Flask(__name__)
-CORS(app) # Mudar depois, desta forma ele faz com que qualquer request de qualquer site seja permitido, idealmente queremos apenas de fontes que conhecemos
+# 127.0.0.1 se refere ao uso e teste local
+CORS(app, origins=['http://127.0.0.1:5001','https://nostradamus.up.railway.app/'])
 
 @app.route("/")
 def index():
@@ -68,5 +69,4 @@ def consulta():
 threading.Thread(target=rodarPesquisasContinuas).start()
 
 if __name__ == "__main__":
-    
     app.run(debug=False)
