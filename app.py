@@ -15,7 +15,7 @@ def print_json(arg):
     return response
 
 app = Flask(__name__)
-# 127.0.0.1 se refere ao uso e teste local
+# 127.0.0.1 se refere ao uso e teste local #
 CORS(app, origins=['http://127.0.0.1:5001','https://nostradamus.up.railway.app/'])
 
 @app.route("/")
