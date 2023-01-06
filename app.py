@@ -2,7 +2,7 @@ from flask import Flask, request
 import json, nltk
 from flask import make_response
 from flask_cors import CORS
-from files.conector import retornarRequisicao, salvarRequisicao, retornarPesquisa
+from files.conector import retornarStatusRequisicao, salvarRequisicao, retornarPesquisa
 from time import time as tick
 from files.looping import rodarPesquisasContinuas
 import threading
@@ -55,7 +55,7 @@ def consulta():
     verdadeiro = 1
     falso = 0
     token = request.args.get('token')
-    tupla = retornarRequisicao(token) # RETORNA BOOLEANS (inProcess, done)
+    tupla = retornarStatusRequisicao(token) # RETORNA BOOLEANS (inProcess, done)
     
     if len(tupla) != 2:
         return {"resposta": 404} # NÃO FOI FEITA NENHUMA BUSCA COM ESTE TOKEN
